@@ -2,14 +2,12 @@ import connectDB from '@/config/database';
 import Property from '@/models/Property';
 import { getSessionUser } from '@/utils/getSessionUser';
 
-export const dynamic = 'force-dynamic';
-
-// GET /api/:id
+// GET /api/properties/:id
 export const GET = async (request, { params }) => {
   try {
     await connectDB();
 
-    const property = await Property.findById(params.id); // to find all properties
+    const property = await Property.findById(params.id);
 
     if (!property) return new Response('Property Not Found', { status: 404 });
 
@@ -38,7 +36,7 @@ export const DELETE = async (request, { params }) => {
 
     await connectDB();
 
-    const property = await Property.findById(propertyId); // to find all properties
+    const property = await Property.findById(propertyId);
 
     if (!property) return new Response('Property Not Found', { status: 404 });
 
@@ -74,7 +72,7 @@ export const PUT = async (request, { params }) => {
 
     const formData = await request.formData();
 
-    // Access all values from amenities and images
+    // Access all values from amenities
     const amenities = formData.getAll('amenities');
 
     // Get property to update
@@ -107,7 +105,7 @@ export const PUT = async (request, { params }) => {
       rates: {
         weekly: formData.get('rates.weekly'),
         monthly: formData.get('rates.monthly'),
-        nightly: formData.get('rates.nightly'),
+        nightly: formData.get('rates.nightly.'),
       },
       seller_info: {
         name: formData.get('seller_info.name'),
@@ -124,6 +122,7 @@ export const PUT = async (request, { params }) => {
       status: 200,
     });
   } catch (error) {
-    return new Response('Failed to add propery', { status: 200 });
+    console.log(error);
+    return new Response('Failed to add property', { status: 500 });
   }
 };
