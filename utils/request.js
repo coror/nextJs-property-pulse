@@ -32,7 +32,9 @@ async function fetchProperty(id) {
       return null;
     }
 
-    const res = await fetch(`${apiDomain}/properties/${id}`);
+    const res = await fetch(`${apiDomain}/properties/${id}`,{
+      mode: 'no-cors' // Set request mode to 'no-cors'
+    });
 
     if (!res.ok) {
       throw new Error('Failed to fetch data');
