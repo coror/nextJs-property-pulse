@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { GlobalProvider } from '@/context/GlobalContext';
 import 'photoswipe/dist/photoswipe.css';
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: 'PropertyPulse | Find The Perfect Rental',
   description: 'Find your dream rental property',
